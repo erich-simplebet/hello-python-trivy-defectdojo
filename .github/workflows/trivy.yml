@@ -37,9 +37,9 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
-          format: 'sarif'
+          #format: 'sarif'
           #template: '@/contrib/sarif.tpl'
-          output: 'trivy-results-vuln.sarif'
+          #output: 'trivy-results-vuln.sarif'
           #vuln-type: 'os,library'
           #severity: 'CRITICAL,HIGH'
 
@@ -54,12 +54,12 @@ jobs:
         with:
           scan-type: 'fs'
           #ignore-unfixed: true
-          format: 'sarif'
-          output: 'trivy-results-repo.sarif'
+          #format: 'sarif'
+          #output: 'trivy-results-repo.sarif'
           #severity: 'CRITICAL'
 
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: 'trivy-results-repo.sarif'
+      #- name: Upload Trivy scan results to GitHub Security tab
+        #uses: github/codeql-action/upload-sarif@v2
+        #with:
+          #sarif_file: 'trivy-results-repo.sarif'
           
