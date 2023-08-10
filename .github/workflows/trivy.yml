@@ -43,10 +43,11 @@ jobs:
           #vuln-type: 'os,library'
           #severity: 'CRITICAL,HIGH'
 
-      #- name: Upload Trivy scan results to GitHub Security tab
-        #uses: github/codeql-action/upload-sarif@v2
-        #with:
-          #sarif_file: 'trivy-results-vuln.sarif'
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results-vuln.sarif'
+          category: image-scan
           
           
       - name: Run Trivy vulnerability scanner in repo mode
@@ -58,7 +59,8 @@ jobs:
           output: 'trivy-results-repo.sarif'
           #severity: 'CRITICAL'
 
-      #- name: Upload Trivy scan results to GitHub Security tab
-        #uses: github/codeql-action/upload-sarif@v2
-        #with:
-          #sarif_file: 'trivy-results-repo.sarif'
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results-repo.sarif'
+          category: repo-scan
