@@ -20,6 +20,10 @@ jobs:
       - run:
           name: Scan the local image with trivy
           command: trivy image --exit-code 0 --no-progress trivy-ci-test:${CIRCLE_SHA1}
+      - run:
+          name: Scan the local repo with trivy
+          command: trivy fs --exit-code 0 --no-progress trivy-ci-test:${CIRCLE_SHA1}          
+          
 workflows:
   version: 2
   release:
