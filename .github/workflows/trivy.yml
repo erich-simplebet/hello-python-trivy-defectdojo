@@ -49,14 +49,15 @@ jobs:
           sarif_file: 'trivy-results-vuln.sarif'
           category: image-scan
             
-      #- name: Run Trivy vulnerability scanner in repo mode
-        #uses: aquasecurity/trivy-action@master
-        #with:
-          #scan-type: 'fs'
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          exit-code: '1'
           #ignore-unfixed: true
           #format: 'sarif'
           #output: 'trivy-results-repo.sarif'
-          #severity: 'CRITICAL'
+          severity: 'CRITICAL,HIGH'
 
       #- name: Upload Trivy scan results to GitHub Security tab
         #uses: github/codeql-action/upload-sarif@v2
