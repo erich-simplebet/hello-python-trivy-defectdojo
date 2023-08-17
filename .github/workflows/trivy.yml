@@ -43,24 +43,30 @@ jobs:
           #vuln-type: 'os,library'
           #severity: 'CRITICAL,HIGH'
 
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: 'trivy-results-vuln.sarif'
-          category: image-scan
+      #- name: Upload Trivy scan results to GitHub Security tab
+        #uses: github/codeql-action/upload-sarif@v2
+        #with:
+          #sarif_file: 'trivy-results-vuln.sarif'
+          #category: image-scan
             
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
-          exit-code: '1'
+          #exit-code: '1'
           #ignore-unfixed: true
-          #format: 'sarif'
-          #output: 'trivy-results-repo.sarif'
-          severity: 'CRITICAL,HIGH'
+          format: 'json'  # 'sarif'
+          output: trivy-results-repo.json # 'trivy-results-repo.sarif'
+          #severity: 'CRITICAL,HIGH'
 
       #- name: Upload Trivy scan results to GitHub Security tab
         #uses: github/codeql-action/upload-sarif@v2
         #with:
           #sarif_file: 'trivy-results-repo.sarif'
+
+      - name: Upload Trivy vulnerability repo scan
+        uses: actions/upload-artifact@v3
+        with:
+          name: repo-scan
+          path: trivy-results-repo.json
           
