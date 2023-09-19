@@ -92,4 +92,4 @@ jobs:
           defectdojo-environment-type: Production
           defectdojo-scan-type: Trivy Scan
           defectdojo-engagement-name: Github Actions Initiated Trivy Scan
-          scan-results-file-name: trivy.json
+          scan-results-file-name: trivy-results-repo.json
