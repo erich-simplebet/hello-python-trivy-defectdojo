@@ -71,6 +71,7 @@ jobs:
           path: trivy-results-repo.json
 
   import-semgrep-report:
+    needs: build
     name: import trivy report
     runs-on: ubuntu-latest
     steps:
