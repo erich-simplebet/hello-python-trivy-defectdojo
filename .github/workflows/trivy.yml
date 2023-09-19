@@ -33,13 +33,13 @@ jobs:
         run: |
           docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
 
-      - name: Run Trivy vulnerability scanner in image mode
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
-          format: 'sarif'
-          template: '@/contrib/sarif.tpl'
-          output: 'trivy-results-vuln.sarif'
+      #- name: Run Trivy vulnerability scanner in image mode
+       # uses: aquasecurity/trivy-action@master
+        #with:
+         # image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
+          #format: 'sarif'
+          #template: '@/contrib/sarif.tpl'
+          #output: 'trivy-results-vuln.sarif'
           #vuln-type: 'os,library'
           #severity: 'CRITICAL,HIGH'
 
@@ -69,4 +69,26 @@ jobs:
         with:
           name: repo-scan
           path: trivy-results-repo.json
-          
+
+  import-semgrep-report:
+    name: import trivy report
+    runs-on: ubuntu-latest
+    steps:
+      - name: download scan results artifact
+        #id: download-scan-results-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: repo-scan
+      - name: import scan results into defectdojo
+        id: import-scan-results-into-defectdojo
+        uses: portswigger-cloud/defectdojo-github-action@v1
+        with:
+          defectdojo-url: http://localhost:8080
+          defectdojo-username: admin
+          defectdojo-password: Admin123!
+          defectdojo-product-type: GitHub
+          defectdojo-product: ${{ github.event.repository.name }}
+          defectdojo-environment-type: Production
+          defectdojo-scan-type: Trivy Scan
+          defectdojo-engagement-name: Github Actions Initiated Trivy Scan
+          scan-results-file-name: trivy.json
