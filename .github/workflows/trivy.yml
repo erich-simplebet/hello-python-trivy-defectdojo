@@ -84,9 +84,9 @@ jobs:
         id: import-scan-results-into-defectdojo
         uses: portswigger-cloud/defectdojo-import-scan@v1.0.1
         with:
-          defectdojo-url: http://192.168.1.234:8080/
+          defectdojo-url: https://demo.defectdojo.org/
           defectdojo-username: admin
-          defectdojo-password: Admin123!
+          defectdojo-password: 1Defectdojo@demo#appsec
           defectdojo-product-type: GitHub
           defectdojo-product: ${{ github.event.repository.name }}
           defectdojo-environment-type: Production
