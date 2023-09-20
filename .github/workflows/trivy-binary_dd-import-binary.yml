@@ -38,7 +38,7 @@ jobs:
       
       - name: Semgrep check
         run: |
-          semgrep --config=r/python --json -o semgrep.json --exclude dd_import/environment.py ./dd_import
+          semgrep scan --json -o semgrep.json --config auto
       
       - name: Upload Semgrep check to DefectDojo
         env:
